@@ -4,6 +4,8 @@ import Icon from 'react-native-vector-icons/Ionicons';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Svg from 'react-native-svg';
 // import MapView from 'react-native-maps';
+import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
+import  { Marker } from 'react-native-maps'; 
 // fonts
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@expo-google-fonts/inter';  
@@ -20,6 +22,9 @@ const coefficientWidth = screenWidth/defaultWidth;
 const coefficientHeight = screenHeight/defaultHeight;
 
 
+
+
+
 export default function MapPageConst({navigation}) {
     let [fontsLoaded] = useFonts({
         'mt-bold': require('../assets/fonts/SFUIDisplayBold.ttf'),
@@ -30,11 +35,48 @@ export default function MapPageConst({navigation}) {
       if (!fontsLoaded) {
         return <AppLoading />;
       }
+      
       return(
         <View style = {{flex: 1}}>
-          
-            <Text>MapPage</Text>
+          <Text>MapPage</Text>
+          <View style={styles.container}>
+          <MapView
+            provider={PROVIDER_GOOGLE} // remove if not using Google Maps
+            style={styles.map}
+            region={{
+                latitude:  47.21578446352277,
+                longitude:  38.92089923118503,
+                latitudeDelta: 0.015,
+                longitudeDelta: 0.0121,
+            }}
+            // region={this.state.region}
+          >
+     </MapView>
+     <Marker
+      // key={index}
+      coordinate={{latitude: 47.21578446352277,
+        longitude:  38.92089923118503}}
+      title={"Hello, Taganrog"}
+      // description={marker.description}
+    />
+        </View>
             {/* <MapView></MapView> */}
         </View>
       );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    ...StyleSheet.absoluteFillObject,
+    // height: screenHeight,
+    // width: screenWidth,
+    flex:1,
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    // 
+  },
+  map: {
+    ...StyleSheet.absoluteFillObject,
+    // backgroundColor: '#fff',
+  },
+ });
