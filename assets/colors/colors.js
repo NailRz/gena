@@ -12,6 +12,7 @@ const colors = {
     grayMainMenu: "#B9B9B9",
     grayNaOtmene: "#DEDEDE",
     white: '#FFFFFF',
+    grayUltraLight: '#ECECEC'
 }
 
 export default colors;
