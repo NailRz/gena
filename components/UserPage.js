@@ -104,17 +104,22 @@ const styles = StyleSheet.create(
 
   UserPhotoWrapper:{
     alignSelf: 'center',
+    // flex:1,
 },
   UserPhoto:{
-    width: 130*coefficientWidth,
+    width: 130*coefficientHeight,
     height: 130*coefficientHeight,
     borderRadius:130,
     marginTop: 10*coefficientHeight,
+    alignSelf: 'center',
 },
   Pen:{
     position: 'absolute',
     alignSelf: 'flex-end',
-    marginTop:22*coefficientHeight,
+    marginTop: 17*coefficientHeight,
+    // marginVertical: '50%',
+    width: 24*coefficientWidth,
+    height: 24*coefficientHeight
   },
   UserNickname:{
     alignSelf: 'center',
@@ -134,6 +139,7 @@ const styles = StyleSheet.create(
     fontSize: 22*coefficientHeight,
     alignSelf: 'center',
     color: colors.blackText,
+    paddingBottom: 15*coefficientHeight,
   },
   MainText:{
     fontFamily: 'mt-regular',
@@ -146,11 +152,12 @@ const styles = StyleSheet.create(
     color: colors.grayLight,
   },
   NameWrapper:{
-    paddingTop:15*coefficientHeight,
+    paddingTop:11*coefficientHeight,
     width: 309*coefficientWidth,
     height: 60 *coefficientHeight,
     borderBottomWidth: 1,
     borderBottomColor: colors.grayUltraLight,
+    // backgroundColor: colors.backgroundGr,
   },
   MaleWrapper:{
     paddingTop: 11*coefficientHeight,
@@ -179,22 +186,25 @@ const styles = StyleSheet.create(
     fontSize: 20*coefficientHeight,
     color: colors.shitColor,
   },
+  QuitWrapper:{
+    // width: 90*coefficientWidth,
+    // height: 30*coefficientHeight,
+    flexDirection: 'row',
+  },  
   SignOut:{
     paddingTop: 11*coefficientHeight,
     fontFamily: 'mt-regular',
     fontSize: 20*coefficientHeight,
     color: colors.backgroundGr,
+    alignSelf: 'flex-start',
   },
-  QuitWrapper:{
-    width: 90*coefficientWidth,
-    height: 30*coefficientHeight,
-    
-  },  
   Quit:{
-    position: 'absolute',
-    alignSelf: 'flex-end',
+    // position: 'absolute',
+    alignSelf: 'flex-start',
     marginTop:  10*coefficientHeight,
-    
+    marginLeft: 2*coefficientWidth,
+    width: 24*coefficientWidth,
+    height:24*coefficientHeight,
   },
 
 

@@ -91,7 +91,7 @@ export default function Navigation() {
               }}
               />
               <Stack.Screen
-              name="UserPage"
+              name="UserPageScreen"
               component={Tabs}
               options={{
                 title: 'UserPage',

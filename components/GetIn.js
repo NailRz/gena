@@ -14,6 +14,7 @@ import React, {Component} from 'react';
 import Woman from '../assets/images/Woman.jsx'; 
 import UrnaSort from '../assets/images/UrnaSort';
 
+import * as Animatable from 'react-native-animatable';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -44,17 +45,22 @@ export default function GetIn({navigation}) {
       }
     
     return(
-        <SafeAreaView style = {styles.container}>  
+        <SafeAreaView style = {styles.container}> 
+            <Animatable.View animation="fadeIn" style = {styles.container}> 
             <Woman style = {styles.woman} > </Woman>
             <UrnaSort style = {styles.urnaSort}> </UrnaSort>
+           
             {/* Vhod */}
+            
             <View style = {styles.vhodRegWrapper} >
                 <View style = {styles.vhodButtonWrapper} >
+    
                 <TouchableOpacity onPress = {loadScene} >
                     <View style = {styles.vhodButtonBackground}>
                         <Text style = {styles.vhodButtonText}> Вход </Text>
                     </View>
                 </TouchableOpacity>
+    
                </View>
                {/* Registration */}
                <View style = {styles.regButtonWrapper} >
@@ -66,6 +72,7 @@ export default function GetIn({navigation}) {
                 </View>
             </View>
             {/* o boje, kak je ya horosh */}
+            </Animatable.View>
         </SafeAreaView>
         
     )

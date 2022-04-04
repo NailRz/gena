@@ -6,6 +6,7 @@ import * as Svg from 'react-native-svg';
 // fonts
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@expo-google-fonts/inter';  
+import * as Animatable from 'react-native-animatable';
 
 const screenWidth = Dimensions.get('window').width;
 const screenHeight = Dimensions.get('window').height;
@@ -23,7 +24,7 @@ export default function ForgotPass({navigation}) {
         navigation.navigate('ChangePassFirst');
     }
     const Back = () => {
-        navigation.navigate('GetIn');}
+        navigation.navigate('Authentification');}
     let [fontsLoaded] = useFonts({
         'mt-bold': require('../assets/fonts/SFUIDisplayBold.ttf'),
         'mt-semiBold': require('../assets/fonts/SFUIDisplaySemiBold.ttf'),
@@ -36,14 +37,19 @@ export default function ForgotPass({navigation}) {
     return(
             <SafeAreaView style = {styles.container}>
                 {/* ArrowBack */}
-            <TouchableOpacity onPress = {Back}>
-            <ArrowBack style = {styles.ArrowBack}></ArrowBack>
-            </TouchableOpacity>
+            <Animatable.View animation="fadeIn">
+                <TouchableOpacity onPress = {Back}>
+                    <ArrowBack style = {styles.ArrowBack}></ArrowBack>
+                 </TouchableOpacity>
+            </Animatable.View>
                 {/* UrnaWelcome */}
-            <UrnaWelcome style = {styles.UrnaWelcome}> </UrnaWelcome>
+            <Animatable.View animation="fadeIn">
+                <UrnaWelcome style = {styles.UrnaWelcome}> </UrnaWelcome>
+            </Animatable.View>
             <View style = {styles.WrapperWhiteWaveBg}>
                 <WaveGreen style = {styles.WaveGreen}></WaveGreen>
                 {/* ForgotPassText */}
+                <Animatable.View animation="fadeIn">
                 <Text style = {styles.ForgotPassText}>Забыли пароль?</Text>
                 {/* ForgotPassMessage */}
                 <View style = {styles.WrapperForgotPassMessage}>
@@ -52,8 +58,11 @@ export default function ForgotPass({navigation}) {
                 {/* MailInput */}
                 <View style = {styles.MailInputWrapper}>
                 <View style = {styles.MailInputBackground}>
-                        <Text style = {styles.MailInputText}> Ivan@mail.com </Text>
-                        </View>
+                        <TextInput style = {styles.inputButtonText}
+                        placeholder = "Ivan@mail.com"
+                        />
+                        {/* <Text style = {styles.MailInputText}> Ivan@mail.com </Text> */}
+                </View>
                 </View>
                 {/* SendButton */}
                 <View style = {styles.SendButtonWrapper} >
@@ -63,7 +72,9 @@ export default function ForgotPass({navigation}) {
                         </View>
                     </TouchableOpacity>
                 </View>
+                </Animatable.View>
             </View>
+            
             </SafeAreaView>
         
         )
@@ -141,6 +152,19 @@ const styles = StyleSheet.create(
             alignSelf: 'center',
             borderColor: colors.grayLight,
             borderWidth:2,
+        },
+        inputButtonText:{
+            height:coefficientHeight* 52,
+            width:coefficientWidth* 320,
+            borderRadius:50,
+            fontFamily: 'mt-regular',
+            alignSelf: 'flex-start',
+            marginLeft:1*coefficientWidth,
+            padding: 17 * coefficientWidth,
+            marginTop: coefficientHeight* 1,
+            fontSize: 20*coefficientHeight,
+            // placeholderTextColor: colors.grayLight,
+            color: colors.grayDark,
         },
         MailInputText:{
             fontFamily: 'mt-regular',

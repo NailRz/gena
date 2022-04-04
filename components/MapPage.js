@@ -5,7 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Svg from 'react-native-svg';
 // import MapView from 'react-native-maps';
 import MapView, { PROVIDER_GOOGLE } from 'react-native-maps'; 
-import  { Marker } from 'react-native-maps'; 
+// import  { Marker } from 'react-native-maps'; 
 // fonts
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@expo-google-fonts/inter';  
@@ -52,13 +52,13 @@ export default function MapPageConst({navigation}) {
             // region={this.state.region}
           >
      </MapView>
-     <Marker
+     {/* <Marker
       // key={index}
       coordinate={{latitude: 47.21578446352277,
         longitude:  38.92089923118503}}
       title={"Hello, Taganrog"}
       // description={marker.description}
-    />
+    /> */}
         </View>
             {/* <MapView></MapView> */}
         </View>

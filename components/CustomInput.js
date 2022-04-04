@@ -40,14 +40,14 @@ const CustomInput = ({value, setValue, placeholder}) => {
 const styles = StyleSheet.create(
     {
         inputButtonText:{
-        height:coefficientHeight* 52,
-        width:coefficientWidth* 320,
+        // height:coefficientHeight* 52,
+        // width:coefficientWidth* 320,
         borderRadius:50,
         fontFamily: 'mt-regular',
         alignSelf: 'flex-start',
         marginLeft:1*coefficientWidth,
-        padding: 17,
-        marginTop: coefficientHeight* 1,
+        padding: 15*coefficientWidth,
+        // marginTop: coefficientHeight* 1,
         fontSize: 20*coefficientHeight,
         // placeholderTextColor: colors.grayLight,
         color: colors.blackText,

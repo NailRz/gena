@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Dimensions, Image, viewBox , SafeAreaView, TouchableOpacity, VirtualizedList, TextInput } from 'react-native';
+import { StyleSheet, Text, View, Dimensions, Image, viewBox , SafeAreaView, TouchableOpacity, VirtualizedList, TextInput, Pressable } from 'react-native';
 import colors from '../assets/colors/colors';
 import Icon from 'react-native-vector-icons/Ionicons';
 import * as Svg from 'react-native-svg';
@@ -6,6 +6,8 @@ import * as Svg from 'react-native-svg';
 import AppLoading from 'expo-app-loading';
 import React, {useState} from 'react';
 import { useFonts } from '@expo-google-fonts/inter';  
+import * as Animatable from 'react-native-animatable';
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 
 
 const screenWidth = Dimensions.get('window').width;
@@ -24,6 +26,7 @@ import WaveGreen from '../assets/images/WaveGreen';
 import GoogleIcon from '../assets/images/GoogleIcon';
 import VkIcon from '../assets/images/VkIcon';
 import FacebookIcon from '../assets/images/FacebookIcon';
+import useTogglePasswordVisibility  from './useTogglePasswordVisibility';
 
 import GetIn from './GetIn';
 import ForgotPass from './ForgotPass';
@@ -34,11 +37,15 @@ export default function Regisrtation ({navigation}) {
         navigation.navigate('GetIn');}
     const onLogin = () => {
         navigation.navigate('Authentification');}
+    const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+        useTogglePasswordVisibility();
     let [fontsLoaded] = useFonts({
             'mt-bold': require('../assets/fonts/SFUIDisplayBold.ttf'),
             'mt-semiBold': require('../assets/fonts/SFUIDisplaySemiBold.ttf'),
             'mt-regular': require('../assets/fonts/SFUIDisplayRegular.ttf'),
             'kr-regular': require('../assets/fonts/SFUIDisplayKronaRegular.ttf'),
+            'verdana-regular': require('../assets/fonts/Verdana.ttf'),
+            'verdana-bold': require('../assets/fonts/Verdana-Bold.ttf'),
           });
     if (!fontsLoaded) {
             return <AppLoading />;
@@ -46,34 +53,51 @@ export default function Regisrtation ({navigation}) {
         return(
             <SafeAreaView style = {styles.container}>
                 {/* ArrowBack */}
+                <Animatable.View animation="fadeIn">
                 <TouchableOpacity onPress = {Back}>
                     <ArrowBack style = {styles.ArrowBack}></ArrowBack>
                 </TouchableOpacity>
+                </Animatable.View>
                 {/* UrnaWelcome */}
+                <Animatable.View animation="fadeIn">
                 <UrnaWelcome style = {styles.UrnaWelcome}> </UrnaWelcome>
+                </Animatable.View>
                 {/* WaveBg */}
                 <View style = {styles.WrapperWhiteWaveBg}>
                     <WaveGreen style = {styles.WaveGreen}></WaveGreen>
                     {/* CreateAcc Text */}
+                    <Animatable.View animation="fadeIn">
                     <Text style = {styles.textCreateAccImport}>Создайте аккаунт</Text>
                     {/* Inputs */}
                     <View style = {styles.inputsWrapper}>
                         {/* LoginInput */}
                         <View style = {styles.loginButtonWrapper} >
                             <View style = {styles.loginButtonBackground}>
-                                <Text style = {styles.loginButtonText}> Ivan </Text>
+                                <TextInput style = {styles.inputButtonText}
+                                    placeholder="Ivan"
+                                />
+                                {/* <Text style = {styles.loginButtonText}> Ivan </Text> */}
                             </View>
                         </View>
                         {/* EmailInput */}
                         <View style = {styles.emailButtonWrapper} >
                             <View style = {styles.emailButtonBackground}>
-                                <Text style = {styles.emailButtonText}> Ivan@mail.com </Text>
+                                <TextInput style = {styles.inputButtonText}
+                                    placeholder="Ivan@mail.com"
+                                />
+                                {/* <Text style = {styles.emailButtonText}> Ivan@mail.com </Text> */}
                             </View>
                         </View>
                         {/* PassInput */}
                         <View style = {styles.passInputButtonWrapper} >
                             <View style = {styles.passInputButtonBackground}>
-                                <Text style = {styles.passInputButtonText}> tochki </Text>
+                                <TextInput style = {styles.passInputButtonInput}
+                                    placeholder="•••"
+                                    secureTextEntry={passwordVisibility}/>
+                                <Pressable onPress={handlePasswordVisibility}>
+                                    <MaterialCommunityIcons name={rightIcon} size={27 * coefficientHeight} style = {styles.eyeStyle} />
+                                </Pressable>
+                                {/* <Text style = {styles.passInputButtonText}> tochki </Text> */}
                             </View>
                         </View>
                     </View>
@@ -96,6 +120,7 @@ export default function Regisrtation ({navigation}) {
                     <TouchableOpacity onPress = {onLogin}>
                     <Text style = {styles.LoginAccText}>Войдите в аккаунт</Text>
                     </TouchableOpacity>
+                    </Animatable.View>
                 </View>
             </SafeAreaView>
         )
@@ -167,6 +192,19 @@ const styles = StyleSheet.create(
         borderColor: colors.grayLight,
         borderWidth:2,
     },
+    inputButtonText:{
+        height:coefficientHeight* 52,
+        width:coefficientWidth* 320,
+        borderRadius:50,
+        fontFamily: 'mt-regular',
+        alignSelf: 'flex-start',
+        marginLeft:1*coefficientWidth,
+        padding: 17 * coefficientWidth,
+        marginTop: coefficientHeight* 1,
+        fontSize: 20*coefficientHeight,
+        // placeholderTextColor: colors.grayLight,
+        color: colors.grayDark,
+    },
     loginButtonText:{
         fontFamily: 'mt-regular',
         alignSelf: 'flex-start',
@@ -208,7 +246,31 @@ const styles = StyleSheet.create(
         alignSelf: 'center',
         borderColor: colors.grayLight,
         borderWidth:2,
+        flexDirection: 'row',
+        // backgroundColor: colors.backgroundGr,
     },
+    passInputButtonInput:{
+        height:coefficientHeight* 52,
+        width:coefficientWidth* 270,
+        borderRadius:50,
+        fontFamily: 'verdana-regular',
+        alignSelf: 'flex-start',
+        marginLeft:1*coefficientWidth,
+        padding: 17 * coefficientWidth,
+        marginTop: coefficientHeight* 1,
+        fontSize: 20*coefficientHeight,
+        // placeholderTextColor: colors.grayLight,
+        color: colors.grayDark,
+        
+        },
+    eyeStyle:{
+            color: colors.grayLight,
+            paddingTop: 13 * coefficientHeight,
+            // paddingLeft: 6 * coefficientHeight,
+            marginLeft: 6 * coefficientWidth,
+            // position:'absolute',
+            // alignSelf: 'flex-end',
+        },
     passInputButtonText:{
         fontFamily: 'mt-regular',
         alignSelf: 'flex-start',

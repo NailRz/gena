@@ -1,4 +1,4 @@
-import { StyleSheet, Pressable, Text, View, Dimensions, Image, viewBox , SafeAreaView, ImageBackground, TouchableOpacity, TextInput } from 'react-native';
+import { StyleSheet, Pressable, Text, View, Dimensions, Image, viewBox , Alert, SafeAreaView, ImageBackground, TouchableOpacity, TextInput } from 'react-native';
 import colors from '../assets/colors/colors';
 import React, {useState} from 'react';
 import Icon from 'react-native-vector-icons/Ionicons';
@@ -7,6 +7,7 @@ import * as Svg from 'react-native-svg';
 // fonts
 import AppLoading from 'expo-app-loading';
 import { useFonts } from '@expo-google-fonts/inter';  
+import * as Animatable from 'react-native-animatable';
 
 // import WhiteWavePNG from '../assets/images/whitewavebg.png';
 
@@ -31,12 +32,13 @@ import GoogleIcon from '../assets/images/GoogleIcon';
 import VkIcon from '../assets/images/VkIcon';
 import FacebookIcon from '../assets/images/FacebookIcon';
 
+// import { AuthContext } from './context';
 
-import CustomInput from './CustomInput';
-import CustomInputPassword from './CustomInputPassword';
+
 import useTogglePasswordVisibility  from './useTogglePasswordVisibility';
 import GetIn from './GetIn';
 // import ForgotPass from './ForgotPass';
+
 
 
 // const whiteWave = {WhiteWaveBg};
@@ -44,51 +46,96 @@ import GetIn from './GetIn';
 export default function Authentification({navigation}) {
     const [username, setUsername] = useState('');
     const [password, setPassword] = useState('');
+
+    const [data, setData] = React.useState ({
+        username: '',
+        password: '',
+        check_textInputChange: false,
+        secureTextEntry: true
+    });
+
+    const textInputChange = (val) => {
+        if ( val.length != 0){
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: true
+            });
+        } else {
+            setData({
+                ...data,
+                username: val,
+                check_textInputChange: false
+            });
+        }
+    }
+
     const { passwordVisibility, rightIcon, handlePasswordVisibility } =
     useTogglePasswordVisibility();
     const RegPage = () => {
         navigation.navigate('Registration');
     }
     const MapPageGo = () => {
-        navigation.navigate('MapPageScreen');
+        navigation.navigate('MapPage');
     }
     const Back = () => {
         navigation.navigate('GetIn');}
     const ForgotPassword = () => {
             navigation.navigate('ForgotPass');}
-            let [fontsLoaded] = useFonts({
-                'mt-bold': require('../assets/fonts/SFUIDisplayBold.ttf'),
-                'mt-semiBold': require('../assets/fonts/SFUIDisplaySemiBold.ttf'),
-                'mt-regular': require('../assets/fonts/SFUIDisplayRegular.ttf'),
-                'kr-regular': require('../assets/fonts/SFUIDisplayKronaRegular.ttf'),
-              });
-              if (!fontsLoaded) {
-                return <AppLoading />;
-              }
+    let mamochka = "-";
+    const mama228 = (mamochka) => {
+        if ( /[a-zA-Z0-9]/i.test(mamochka) ) {
+            return console.log("DA");}
+        else {
+            return console.log("NET");
+        }
+    }
+
+    //const { signIn } = React.useContext(AuthContext);
+
+    let [fontsLoaded] = useFonts({
+        'mt-bold': require('../assets/fonts/SFUIDisplayBold.ttf'),
+        'mt-semiBold': require('../assets/fonts/SFUIDisplaySemiBold.ttf'),
+        'mt-regular': require('../assets/fonts/SFUIDisplayRegular.ttf'),
+        'kr-regular': require('../assets/fonts/SFUIDisplayKronaRegular.ttf'),
+        'verdana-regular': require('../assets/fonts/Verdana.ttf'),
+        'verdana-bold': require('../assets/fonts/Verdana-Bold.ttf'),
+      });
+      if (!fontsLoaded) {
+        return <AppLoading />;
+      }else {
     return(
         <SafeAreaView style = {styles.container}>
+            {/* <View>{username}</View> */}
             {/* ArrowBack */}
-            <TouchableOpacity onPress = {() => navigation.goBack()}>
+            <Animatable.View animation="fadeIn">
+            <TouchableOpacity onPress = {Back}>
             <ArrowBack style = {styles.ArrowBack}></ArrowBack>
             </TouchableOpacity>
+            </Animatable.View>
             {/* UrnaWelcome */}
+            <Animatable.View animation="fadeIn">
             <UrnaWelcome style = {styles.UrnaWelcome}> </UrnaWelcome>
             {/* WaveBg */}
-            
+            </Animatable.View>
+
             {/* <ImageBackground source={requaer('../assets/images/waveWork.png')} style = {styles.WaveGreen}></ImageBackground> */}
             <View style = {styles.WrapperWhiteWaveBg}>
             <WaveGreen style = {styles.WaveGreen}></WaveGreen>
                 {/* text voidite v acc */}
+                <Animatable.View animation="fadeIn">
                 <Text style = {styles.textGetInAccImport}>Войдите в аккаунт</Text>
                 {/* Inputs */}
                 <View style = {styles.inputsWrapper}>
                     {/* LoginInput */}
                     <View style = {styles.loginButtonWrapper} >
                         <View style = {styles.loginButtonBackground}>
-                            <CustomInput
+                            <TextInput style = {styles.inputButtonText}
                             placeholder="Ivan" 
-                            value={username} 
-                            setValue={setUsername}
+                            autoCapitalize='none'
+                            
+                            
+                            // error={userError}
                             />
                         {/* <Text style = {styles.loginButtonText}> Ivan </Text> */}
                         </View>
@@ -96,25 +143,24 @@ export default function Authentification({navigation}) {
                     {/* PassInput */}
                     <View style = {styles.passInputButtonWrapper} >
                         <View style = {styles.passInputButtonBackground}>
-                            <CustomInputPassword
-                            secureTextEntry={passwordVisibility}
-                            value={password}
-                            setValue={setPassword}
-                            />
+                            <TextInput style = {styles.passInputButtonInput}
+                            placeholder="•••"
+                            secureTextEntry={passwordVisibility}/>
                             <Pressable onPress={handlePasswordVisibility}>
-                                <MaterialCommunityIcons name={rightIcon} size={30*coefficientHeight} style = {styles.eyeStyle} />
+                                <MaterialCommunityIcons name={rightIcon} size={27 * coefficientHeight} style = {styles.eyeStyle} />
                             </Pressable>
                         </View>
                     </View>
                     {/* ForgotPassText */}
-                    <TouchableOpacity style = {styles.ForgotPassTextOpacity} onPress={ForgotPassword}>
+                    <TouchableOpacity style = {styles.ForgotPassTextOpacity}onPress={ForgotPassword}>
                     <Text style = {styles.ForgotPassText}>Забыли пароль?</Text>
                     </TouchableOpacity>
                 </View>     
                 
                 {/* GetInButton */}
                 <View style = {styles.vhodButtonWrapper} >
-                    <TouchableOpacity onPress={MapPageGo}>
+                    {/* <Alert></Alert> */}
+                    <TouchableOpacity onPress={() => mama228(username)}>
                     <View style = {styles.vhodButtonBackground}>
                         <Text style = {styles.vhodButtonText}> Войти </Text>
                     </View>
@@ -131,17 +177,18 @@ export default function Authentification({navigation}) {
                 {/* NoRegYetText */}
                 <Text style = {styles.NoRegYetText}>Еще не зарегистрированны?</Text>
                 {/* CreateAccText */}
-                <TouchableOpacity style = {styles.ForgotPassTextOpacitySecond} onPress = {RegPage}>
+                <TouchableOpacity onPress = {RegPage}>
                 <Text style = {styles.CreateAccText}>Создайте аккаунт</Text>
                 </TouchableOpacity>
+                </Animatable.View>
             </View>
     
         {/* </WhiteWaveBg> */}
-            
+        
         </SafeAreaView>
     
     )
-
+}
 }
 
 
@@ -166,6 +213,7 @@ const styles = StyleSheet.create(
     },
     UrnaWelcome:{
         // alignSelf: 'center',
+        
         marginLeft: 26*coefficientHeight,
         height: 115* coefficientHeight,
         width: 298  * coefficientWidth,  
@@ -213,10 +261,9 @@ const styles = StyleSheet.create(
     inputsWrapper:{
         // flex:0.5,
         paddingTop:coefficientHeight* 24,
-        width:coefficientWidth* 323,
-        // height:158*coefficientHeight,
+        width:coefficientHeight* 323,
         alignSelf: 'center',
-        // backgroundColor: colors.backgroundGr,
+
     },
     loginButtonWrapper:{
         
@@ -228,20 +275,30 @@ const styles = StyleSheet.create(
         width:coefficientWidth* 323,
         borderRadius:50,
         alignSelf: 'center',
+        flexDirection: 'row',
         borderColor: colors.grayLight,
         borderWidth:2,
+        // backgroundColor: colors.backgroundGr,
     },
-    loginButtonInputText:{
+    inputButtonText:{
         height:coefficientHeight* 52,
         width:coefficientWidth* 320,
         borderRadius:50,
         fontFamily: 'mt-regular',
         alignSelf: 'flex-start',
         marginLeft:1*coefficientWidth,
-        padding: 17,
+        padding: 17 * coefficientWidth,
         marginTop: coefficientHeight* 1,
-        fontSize: 18*coefficientHeight,
-        color: colors.blackText,
+        fontSize: 20*coefficientHeight,
+        // placeholderTextColor: colors.grayLight,
+        color: colors.grayDark,
+    },
+    CircleStyle:{
+        color: colors.grayLight,
+        paddingTop: 13 * coefficientHeight,
+        marginLeft: 6 * coefficientWidth
+        // paddingLeft: 
+        // alignSelf: 'flex-end',
     },
     passInputButtonWrapper:{
         marginTop: 21*coefficientHeight,
@@ -260,28 +317,43 @@ const styles = StyleSheet.create(
     eyeStyle:{
         color: colors.grayLight,
         paddingTop: 13 * coefficientHeight,
+        // paddingLeft: 6 * coefficientHeight,
+        marginLeft: 6 * coefficientWidth
 
     },
     passInputButtonInputText:{
-        height:coefficientHeight* 58,
-        width:coefficientWidth* 320,
+        height:coefficientHeight* 52,
+        width:coefficientWidth* 270,
         borderRadius:50,
-        fontFamily: 'mt-regular',
+        fontFamily: 'verdana-regular',
         alignSelf: 'flex-start',
         marginLeft:1*coefficientWidth,
-        padding: 17,
+        padding: 17 * coefficientWidth,
         marginTop: coefficientHeight* 1,
-        fontSize: 18*coefficientHeight,
-        color: colors.blackText,
+        fontSize: 20*coefficientHeight,
+        // placeholderTextColor: colors.grayLight,
+        color: colors.grayDark,
     },
+    passInputButtonInput:{
+        height:coefficientHeight* 52,
+        width:coefficientWidth* 270,
+        borderRadius:50,
+        fontFamily: 'verdana-regular',
+        alignSelf: 'flex-start',
+        marginLeft:1*coefficientWidth,
+        padding: 17 * coefficientWidth,
+        marginTop: coefficientHeight* 1,
+        fontSize: 20*coefficientHeight,
+        // placeholderTextColor: colors.grayLight,
+        color: colors.grayDark,
+        },
+
     ForgotPassTextOpacity:{
-        // marginLeft: "70%",
-        width: 160*coefficientWidth,
-        height: 40*coefficientHeight,
+        width: 160 * coefficientWidth,
+        height: 40 * coefficientHeight,
         alignSelf: 'flex-end',
         // backgroundColor: colors.backgroundGr,
-        // marginRight: 20*coefficientWidth,    
-    },  
+    },
     ForgotPassText:{
         // alignSelf: 'flex-end',
         paddingTop: 9*coefficientHeight,
@@ -289,10 +361,9 @@ const styles = StyleSheet.create(
         color: colors.grayLight,
         // paddingStart: screenWidth * 0.362,//screenWidth * 0.232,
         fontSize: 18*coefficientHeight,
-        // marginLeft: screenWidth * 0.48309179 + (mama / 4),
+        //  marginLeft: screenWidth * 0.48309179 + (mama / 4),
+        // alignSelf: 'flex-end',
         // marginRight:28*coefficientWidth,
-        // backgroundColor: colors.backgroundGr,
-        alignSelf: 'flex-end',
     },
     vhodButtonWrapper:{
         paddingTop:coefficientHeight* 13,
@@ -367,15 +438,10 @@ const styles = StyleSheet.create(
         color: colors.grayLight,
         
     },
-    ForgotPassTextOpacitySecond:{
-        // backgroundColor: colors.shitColor,
-        marginLeft: 28*coefficientWidth,
-        alignSelf: 'flex-start',
-    },  
     CreateAccText:{
         fontFamily: 'mt-regular',
-        // alignSelf: 'flex-start',
-        // paddingLeft: 28*coefficientWidth,
+        alignSelf: 'flex-start',
+        paddingLeft: 28*coefficientWidth,
         fontSize: 18*coefficientHeight,
         color: colors.backgroundGr,
     },

@@ -37,14 +37,14 @@ const CustomInputPassword = ({value, setValue, secureTextEntry}) => {
 const styles = StyleSheet.create(
     {
     passInputButtonInput:{
-        height:coefficientHeight* 52,
-        width:coefficientWidth* 270,
+        // height:coefficientHeight* 52,
+        // width:coefficientWidth* 270,
         borderRadius:50,
         fontFamily: 'verdana-regular',
         alignSelf: 'flex-start',
         marginLeft:1*coefficientWidth,
-        padding: 17,
-        marginTop: coefficientHeight* 1,
+        padding: 15*coefficientWidth,
+        // marginTop: coefficientHeight* 1,
         fontSize: 20*coefficientHeight,
         // placeholderTextColor: colors.grayLight,
         color: colors.grayDark,
