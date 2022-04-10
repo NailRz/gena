@@ -349,12 +349,13 @@ const styles = StyleSheet.create(
         },
 
     ForgotPassTextOpacity:{
-        width: 160 * coefficientWidth,
-        height: 40 * coefficientHeight,
+        
         alignSelf: 'flex-end',
         // backgroundColor: colors.backgroundGr,
     },
     ForgotPassText:{
+        // width: 160 * coefficientWidth,
+        // height: 40 * coefficientHeight,
         // alignSelf: 'flex-end',
         paddingTop: 9*coefficientHeight,
         fontFamily: 'mt-regular',

@@ -33,7 +33,7 @@ export default function Tabs() {
                     title: 'Welcome',
                     headerShown: false}} />
         <Tab.Screen 
-                name="NewsPage" 
+                name="NewsPage"
                 component={NewsPage} 
                 options={{  
                     tabBarIcon: ({focused}) =>(
