@@ -76,7 +76,7 @@ export default function Authentification({navigation}) {
         navigation.navigate('Registration');
     }
     const MapPageGo = () => {
-        navigation.navigate('MapPage');
+        navigation.navigate('MapPageScreen');
     }
     const Back = () => {
         navigation.navigate('GetIn');}
@@ -160,7 +160,7 @@ export default function Authentification({navigation}) {
                 {/* GetInButton */}
                 <View style = {styles.vhodButtonWrapper} >
                     {/* <Alert></Alert> */}
-                    <TouchableOpacity onPress={() => mama228(username)}>
+                    <TouchableOpacity onPress={MapPageGo}>
                     <View style = {styles.vhodButtonBackground}>
                         <Text style = {styles.vhodButtonText}> Войти </Text>
                     </View>
