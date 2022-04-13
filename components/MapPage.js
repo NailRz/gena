@@ -3,11 +3,13 @@ import {
   Text,
   View,
   Dimensions,
+  Modal,
   Animated,
   Image,
   viewBox,
   TouchableOpacity,
   ScrollView,
+  TouchableHighlight
 } from "react-native";
 
 import colors from "../assets/colors/colors";
@@ -22,7 +24,7 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/inter";
 import Authentification from "../components/Authentification";
 // import ForgotPass from '../components/ForgotPass';
-import React, { useRef, Component } from "react";
+import React, { useState, Component } from "react";
 import Filters from "../assets/images/Filters";
 import PlasticFilter from "../assets/images/PlasticFilter";
 import BioFilter from "../assets/images/BioFilter";
@@ -38,6 +40,13 @@ const coefficientHeight = screenHeight / defaultHeight;
 // import SwipeContainer from 'react-native-scroll-up-container'
 
 export default function MapPageConst({ navigation }) {
+  const [showModal, setshowModal] = useState(false);
+  const onPressButton = () => {
+    
+    setshowModal(!showModal), console.log(showModal);
+  };
+
+
   let [fontsLoaded] = useFonts({
     "mt-bold": require("../assets/fonts/SFUIDisplayBold.ttf"),
     "mt-semiBold": require("../assets/fonts/SFUIDisplaySemiBold.ttf"),
@@ -53,9 +62,21 @@ export default function MapPageConst({ navigation }) {
 
   return (
     <View style={styles.map}>
-      <Text>MapPage</Text>
-      <Filters style={styles.Filters}></Filters>
-      <ScrollView style={styles.FilersScroll}>
+     <Text>MapPage</Text>
+      {/* <View style={styles.opa}> */}
+      <TouchableOpacity onPress={onPressButton}>
+        <Filters/>
+      </TouchableOpacity>
+      {/* </View> */}
+      <Modal
+       animationType="fade"
+       transparent={true}
+       style={styles.FilersScroll}
+        visible={showModal}
+        onRequestClose={() => {
+          setshowModal(false);
+        }}
+      >
         <SafeAreaView style={styles.FilersAreaWrapper}>
           <PlasticFilter style={styles.PlasticFilterWrapper}></PlasticFilter>
           <BioFilter style={styles.BioFilterWrapper}></BioFilter>
@@ -68,8 +89,7 @@ export default function MapPageConst({ navigation }) {
           <PaperFilter style={styles.PaperFilter}></PaperFilter> */}
           {/* <Text>bebra</Text> */}
         </SafeAreaView>
-      </ScrollView>
-
+      </Modal>
       <View style={styles.container}>
         <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
@@ -100,27 +120,22 @@ const styles = StyleSheet.create({
     ...StyleSheet.absoluteFillObject,
     // height: screenHeight,
     // width: screenWidth,
-    flex: 1,
-    justifyContent: "flex-end",
+    // flex: 1,
+    // justifyContent: "flex-end",
     alignItems: "center",
+    elevation:-1,
     //
   },
   map: {
     ...StyleSheet.absoluteFillObject,
     // backgroundColor: '#fff',
   },
-  Filters: {
-    height: 50,
-    width: 50,
+  opa:{
+    // elevation: 3,
     // flex:1,
-    elevation: 3,
-    borderRadius: 40,
-    marginTop: 140 * coefficientHeight,
-    // alignSelf: "flex-end",
-    // position: 'relative',
-    // marginLeft:screenWidth-(50*coefficientWidth),
-    alignSelf: "flex-end",
-    marginRight: 10 * coefficientWidth,
+  },
+  Filters: {
+   
   },
   FilersScroll: {
     elevation: 2,

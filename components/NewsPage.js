@@ -6,6 +6,7 @@ import {
   Image,
   viewBox,
   TouchableOpacity,
+  Modal
 } from "react-native";
 import colors from "../assets/colors/colors";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -32,6 +33,12 @@ import PaperFilter from "../assets/images/PaperFilter";
 
 
 export default function MapPageConst({ navigation }) {
+
+  // const [showModal, setshowModal] = useState(false);
+  // const ChangeNameModal () => {
+
+  // }
+
   let [fontsLoaded] = useFonts({
     "mt-bold": require("../assets/fonts/SFUIDisplayBold.ttf"),
     "mt-semiBold": require("../assets/fonts/SFUIDisplaySemiBold.ttf"),

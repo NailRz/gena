@@ -6,6 +6,7 @@ import {
   Image,
   viewBox,
   TouchableOpacity,
+  Modal,
 } from "react-native";
 import colors from "../assets/colors/colors";
 import Icon from "react-native-vector-icons/Ionicons";
@@ -16,7 +17,7 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/inter";
 import Authentification from "../components/Authentification";
 // import ForgotPass from '../components/ForgotPass';
-import React, { Component } from "react";
+import React, { Component, useState } from "react";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -27,6 +28,8 @@ const coefficientWidth = screenWidth / defaultWidth;
 const coefficientHeight = screenHeight / defaultHeight;
 
 export default function NameAlert({ navigation }) {
+    
+ 
   let [fontsLoaded] = useFonts({
     "mt-bold": require("../assets/fonts/SFUIDisplayBold.ttf"),
     "mt-semiBold": require("../assets/fonts/SFUIDisplaySemiBold.ttf"),
@@ -36,26 +39,48 @@ export default function NameAlert({ navigation }) {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
+     
+  const [showModal, setshowModal] = useState(false);
+  const onPressButton = () => {
+    
+     return setshowModal(true), console.log(showModal);
+  };
+
   return (
     <SafeAreaView>
       {/* <Text>NameAlertComponent</Text> */}
-      <View style={styles.Wrapper}>
-        <Text style={styles.FirstText}>Имя и фамилия</Text>
-        <Text style={styles.SecondText}>Введите новые имя и фамилию</Text>
-        <View style={styles.InputWrapper}></View>
-        <View style={styles.ButtonsWrapper}>
-          <Text style={styles.FirstButton}>Отменить</Text>
-          <Text style={styles.SecondButton}>Сохранить</Text>
+      <Modal
+        style={styles.Modal}
+        // visible={showModal}
+        onRequestClose={() => {
+          setshowModal(false);
+          
+        }}
+      >
+        <View style={styles.Wrapper}>
+          <Text style={styles.FirstText}>Имя и фамилия</Text>
+          <Text style={styles.SecondText}>Введите новые имя и фамилию</Text>
+          <View style={styles.InputWrapper}></View>
+          <View style={styles.ButtonsWrapper}>
+            <TouchableOpacity onPress={onPressButton}>
+              <Text style={styles.FirstButton}>Отменить</Text>
+            </TouchableOpacity>
+            <Text style={styles.SecondButton}>Сохранить</Text>
+          </View>
         </View>
-      </View>
+      </Modal>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
+  Modal: {
+    backgroundColor: "black",
+    // flex:1,
+  },
   Wrapper: {
     // flex:1,
-    elevation:2,
+    elevation: 2,
     width: 325 * coefficientWidth,
     height: 221 * coefficientHeight,
     backgroundColor: colors.backgroundWh,
@@ -89,19 +114,18 @@ const styles = StyleSheet.create({
   ButtonsWrapper: {
     flexDirection: "row",
     backgroundColor: colors.backgroundGr,
-    marginTop:36*coefficientHeight,
+    marginTop: 36 * coefficientHeight,
   },
   FirstButton: {
-    right:137*coefficientWidth,
+    right: 137 * coefficientWidth,
     position: "absolute",
     fontFamily: "mt-semiBold",
     color: colors.grayLight,
-    
-  },
+  }, 
   SecondButton: {
     // flexBasis:1
     position: "absolute",
-    right: 22*coefficientWidth,
+    right: 22 * coefficientWidth,
     fontFamily: "mt-semiBold",
     color: colors.backgroundGr,
   },

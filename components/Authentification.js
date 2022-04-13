@@ -367,8 +367,8 @@ const styles = StyleSheet.create({
     // backgroundColor: colors.backgroundGr,
   },
   ForgotPassTextWrapper: {
-    color: 'black',
-    height: 40*coefficientHeight,
+    color: "black",
+    height: 40 * coefficientHeight,
     // width: screenWidth,
   },
   ForgotPassText: {

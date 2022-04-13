@@ -55,7 +55,7 @@ export default function UserPage({navigation}) {
               <View style = {styles.NameWrapper}>
                 <Text style = {styles.MainText}>Имя и фамилия</Text>
                 <Text style = {styles.SecondText}>Гоша Мехдиев</Text>
-                <TouchableOpacity style = {styles.Pen} OnPress = { NameAlert}>
+                <TouchableOpacity style = {styles.Pen} OnPress = { <NameAlert/>}>
                 <Pen></Pen>
                 
                 </TouchableOpacity>
