@@ -6,7 +6,7 @@ import Registration from "./Registration";
 import ChangePassFirst from "./ChangePassFirst";
 import ChangePassSecond from "./ChangePassSecond";
 import MapPage from "./MapPage";
-
+import NameAlert from "./NameAlert";
 import Tabs from "./BottomNavigation";
 
 import { NavigationContainer } from '@react-navigation/native';
@@ -98,6 +98,14 @@ export default function Navigation() {
                 headerShown: false,
                 // helloyapsix
 
+              }}
+              />
+              <Stack.Screen
+              name="NameAlert"
+              component={NameAlert}
+              options={{
+                title: 'NameAlert',
+                headerShown: false,
               }}
               />
             </Stack.Navigator>

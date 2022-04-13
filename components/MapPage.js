@@ -9,6 +9,7 @@ import {
   TouchableOpacity,
   ScrollView,
 } from "react-native";
+
 import colors from "../assets/colors/colors";
 import Icon from "react-native-vector-icons/Ionicons";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -21,7 +22,7 @@ import AppLoading from "expo-app-loading";
 import { useFonts } from "@expo-google-fonts/inter";
 import Authentification from "../components/Authentification";
 // import ForgotPass from '../components/ForgotPass';
-import React, { Component } from "react";
+import React, { useRef, Component } from "react";
 import Filters from "../assets/images/Filters";
 import PlasticFilter from "../assets/images/PlasticFilter";
 import BioFilter from "../assets/images/BioFilter";
@@ -46,7 +47,7 @@ export default function MapPageConst({ navigation }) {
   if (!fontsLoaded) {
     return <AppLoading />;
   }
-
+  // const scrollX = useRef(new Animated.Value(0)).current;
   // const deltaX = useRef(new Animated.Value(0)).current;
   // const deltaY = useRef(new Animated.Value(0)).current;
 
@@ -54,23 +55,11 @@ export default function MapPageConst({ navigation }) {
     <View style={styles.map}>
       <Text>MapPage</Text>
       <Filters style={styles.Filters}></Filters>
-      <Animated.ScrollView contentOffset={{ x: 100, y: 1000 }} style={styles.FilersScroll}
-      // scrollEventThrottle={1} // <-- Use 1 here to make sure no events are ever missed
-      // onScroll={Animated.event(
-      //   [
-      //     {
-      //       nativeEvent: {
-      //         contentOffset: {  y: deltaY }
-      //       }
-      //     }
-      //   ],
-      //   { useNativeDriver: true } // <-- Add this
-      // )}
-      >
-        <SafeAreaView style = {styles.FilersAreaWrapper}>
+      <ScrollView style={styles.FilersScroll}>
+        <SafeAreaView style={styles.FilersAreaWrapper}>
           <PlasticFilter style={styles.PlasticFilterWrapper}></PlasticFilter>
           <BioFilter style={styles.BioFilterWrapper}></BioFilter>
-          <PaperFilter style={styles.PaperFilterWrapper}></PaperFilter> 
+          <PaperFilter style={styles.PaperFilterWrapper}></PaperFilter>
           {/* <View style={styles.PlasticFilterWrapper}></View>
           <View style={styles.BioFilterWrapper}></View>
           <View style={styles.PaperFilterWrapper}></View> */}
@@ -79,8 +68,7 @@ export default function MapPageConst({ navigation }) {
           <PaperFilter style={styles.PaperFilter}></PaperFilter> */}
           {/* <Text>bebra</Text> */}
         </SafeAreaView>
-        
-      </Animated.ScrollView>
+      </ScrollView>
 
       <View style={styles.container}>
         <MapView
@@ -125,49 +113,49 @@ const styles = StyleSheet.create({
     height: 50,
     width: 50,
     // flex:1,
-    elevation:3,
-    borderRadius:40,
+    elevation: 3,
+    borderRadius: 40,
     marginTop: 140 * coefficientHeight,
     // alignSelf: "flex-end",
     // position: 'relative',
     // marginLeft:screenWidth-(50*coefficientWidth),
-    alignSelf:'flex-end',
-    marginRight:10*coefficientWidth,
+    alignSelf: "flex-end",
+    marginRight: 10 * coefficientWidth,
   },
   FilersScroll: {
     elevation: 2,
     height: 145 * coefficientHeight,
     width: screenWidth,
-    marginBottom: 100*coefficientHeight,
+    marginBottom: 100 * coefficientHeight,
     backgroundColor: colors.backgroundGr,
     position: "absolute",
   },
-  
+
   FilersAreaWrapper: {
-    marginHorizontal:20*coefficientWidth,
-    height:130*coefficientHeight,
+    marginHorizontal: 20 * coefficientWidth,
+    height: 130 * coefficientHeight,
   },
   PlasticFilterWrapper: {
     width: 117 * coefficientWidth,
     height: 96 * coefficientHeight,
     // backgroundColor: colors.backgroundGr,
-    position:'absolute',
-    marginTop:25*coefficientHeight,
+    position: "absolute",
+    marginTop: 25 * coefficientHeight,
   },
   BioFilterWrapper: {
     width: 97 * coefficientWidth,
     height: 96 * coefficientHeight,
     // backgroundColor: colors.backgroundGr,
-    position:'absolute',
-    marginTop:25*coefficientHeight,
-    alignSelf:'center',
+    position: "absolute",
+    marginTop: 25 * coefficientHeight,
+    alignSelf: "center",
   },
   PaperFilterWrapper: {
     width: 96 * coefficientWidth,
     height: 96 * coefficientHeight,
     // backgroundColor: colors.backgroundGr,
-    position:'absolute',
-    marginTop:25*coefficientHeight,
-    alignSelf:'flex-end',
+    position: "absolute",
+    marginTop: 25 * coefficientHeight,
+    alignSelf: "flex-end",
   },
 });

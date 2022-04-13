@@ -7,6 +7,7 @@ import MapPage from './MapPage';
 import NewsPage from './NewsPage'; 
 import BookPage from './BookPage'; 
 import UserPage from './UserPage'; 
+import NameAlert from './NameAlert';
 
 import IconMapPressed from '../assets/images/IconMapPressed';
 import IconMapNoPressed from '../assets/images/IconMapNoPressed';
@@ -59,6 +60,13 @@ export default function Tabs() {
                     ),
                     title: 'Welcome',
                     headerShown: false}} />
+        {/* <Tab.Screen 
+                name="NameAlert" 
+                component={NameAlert} 
+                options={{  
+                    
+                    title: 'Welcome',
+                    headerShown: false}} /> */}
     </Tab.Navigator>
   );
 }

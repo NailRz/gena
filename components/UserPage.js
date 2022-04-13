@@ -21,10 +21,13 @@ const coefficientHeight = screenHeight/defaultHeight;
 import WaveGreenReversed from '../assets/images/WaveGreenReversed';
 import Pen from '../assets/images/Pen';
 import Quit from '../assets/images/Quit';
+import NameAlert from './NameAlert'
 
 
-
-export default function MapPageConst({navigation}) {
+export default function UserPage({navigation}) {
+  const NameAlert = () => {
+    navigation.navigate("NameAlert");
+  }
     let [fontsLoaded] = useFonts({
         'mt-bold': require('../assets/fonts/SFUIDisplayBold.ttf'),
         'mt-semiBold': require('../assets/fonts/SFUIDisplaySemiBold.ttf'),
@@ -35,7 +38,9 @@ export default function MapPageConst({navigation}) {
         return <AppLoading />;
       }
       return(
+        // <NameAlert position = 'absolute' >
         <SafeAreaView style = {styles.container}>
+          
             <View style = {styles.UserPhotoWrapper}>
             <Image 
               style = {styles.UserPhoto}
@@ -43,7 +48,6 @@ export default function MapPageConst({navigation}) {
               />
             <Text style = {styles.UserNickname}>Nickname</Text>
           </View>
-
           <View style = {styles.WrapperWhiteWaveBg}>
             <WaveGreenReversed style = {styles.WaveGreenReversed}></WaveGreenReversed>
             <View style = {styles.SettingsWrapper}>
@@ -51,7 +55,10 @@ export default function MapPageConst({navigation}) {
               <View style = {styles.NameWrapper}>
                 <Text style = {styles.MainText}>Имя и фамилия</Text>
                 <Text style = {styles.SecondText}>Гоша Мехдиев</Text>
-                <Pen style = {styles.Pen}></Pen>
+                <TouchableOpacity style = {styles.Pen} OnPress = { NameAlert}>
+                <Pen></Pen>
+                
+                </TouchableOpacity>
               </View>
               <View style = {styles.MaleWrapper}>
                 <Text style = {styles.MainText}>Пол</Text>
@@ -78,6 +85,7 @@ export default function MapPageConst({navigation}) {
             
           </View>
         </SafeAreaView>
+        // </NameAlert>
       );
 }
 

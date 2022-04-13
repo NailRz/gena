@@ -18,6 +18,7 @@ const bebra = 20;
 const coefficientWidth = screenWidth/defaultWidth;
 const coefficientHeight = screenHeight/defaultHeight;
 
+import NameAlert from './NameAlert';
 
 export default function MapPageConst({navigation}) {
     let [fontsLoaded] = useFonts({
@@ -32,6 +33,7 @@ export default function MapPageConst({navigation}) {
       return(
         <SafeAreaView>
             <Text>BookPage</Text>
+            <NameAlert></NameAlert>
         </SafeAreaView>
       );
 }
