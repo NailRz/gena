@@ -48,7 +48,9 @@ export default function MapPageConst({ navigation }) {
   }
   return (
     <SafeAreaView>
-      <TouchableOpacity >
+      <TouchableOpacity onPress={
+        onPressButton
+      }>
         <Filters/>
       </TouchableOpacity>
       {/* Окно изменения имени */}

@@ -9,7 +9,7 @@ import {
   viewBox,
   TouchableOpacity,
   ScrollView,
-  TouchableHighlight
+  TouchableHighlight,
 } from "react-native";
 
 import colors from "../assets/colors/colors";
@@ -38,14 +38,13 @@ const bebra = 20;
 const coefficientWidth = screenWidth / defaultWidth;
 const coefficientHeight = screenHeight / defaultHeight;
 // import SwipeContainer from 'react-native-scroll-up-container'
+// import Modal from "react-native-modal";
 
 export default function MapPageConst({ navigation }) {
   const [showModal, setshowModal] = useState(false);
   const onPressButton = () => {
-    
     setshowModal(!showModal), console.log(showModal);
   };
-
 
   let [fontsLoaded] = useFonts({
     "mt-bold": require("../assets/fonts/SFUIDisplayBold.ttf"),
@@ -62,34 +61,6 @@ export default function MapPageConst({ navigation }) {
 
   return (
     <View style={styles.map}>
-     <Text>MapPage</Text>
-      {/* <View style={styles.opa}> */}
-      <TouchableOpacity onPress={onPressButton}>
-        <Filters/>
-      </TouchableOpacity>
-      {/* </View> */}
-      <Modal
-       animationType="fade"
-       transparent={true}
-       style={styles.FilersScroll}
-        visible={showModal}
-        onRequestClose={() => {
-          setshowModal(false);
-        }}
-      >
-        <SafeAreaView style={styles.FilersAreaWrapper}>
-          <PlasticFilter style={styles.PlasticFilterWrapper}></PlasticFilter>
-          <BioFilter style={styles.BioFilterWrapper}></BioFilter>
-          <PaperFilter style={styles.PaperFilterWrapper}></PaperFilter>
-          {/* <View style={styles.PlasticFilterWrapper}></View>
-          <View style={styles.BioFilterWrapper}></View>
-          <View style={styles.PaperFilterWrapper}></View> */}
-          {/* <PlasticFilter style={styles.PlasticFilter}></PlasticFilter>
-          <BioFilter style={styles.BioFilter}></BioFilter>
-          <PaperFilter style={styles.PaperFilter}></PaperFilter> */}
-          {/* <Text>bebra</Text> */}
-        </SafeAreaView>
-      </Modal>
       <View style={styles.container}>
         <MapView
           provider={PROVIDER_GOOGLE} // remove if not using Google Maps
@@ -102,6 +73,48 @@ export default function MapPageConst({ navigation }) {
           }}
           // region={this.state.region}
         ></MapView>
+
+        {/* <SafeAreaView>
+          <TouchableOpacity>
+            <Text style={styles.Text}>MapPage</Text>
+          </TouchableOpacity>
+        </SafeAreaView> */}
+        {/* <View style={styles.opa}> */}
+        <TouchableOpacity style={styles.Filters} onPress={onPressButton}>
+          <Filters />
+        </TouchableOpacity>
+        {/* </View> */}
+        <Modal
+          // animationType="slideInUp"
+          animationIn= 'up'
+          animationInTiming = {500}
+          animationOut = "slideOutDown"
+          hasBackdrop = {1}
+          transparent={true}
+          style={styles.FilersScroll}
+          visible={showModal}
+          dismissable = {false}
+          backdropColor = 'black'
+          swipeDirection = 'up'
+          
+          onRequestClose={() => {
+            setshowModal(false);
+          }}
+          onSwipeComplete={() => setshowModal(false)}
+        >
+          <View style={styles.FilersAreaWrapper}>
+            <PlasticFilter style={styles.PlasticFilterWrapper}></PlasticFilter>
+            <BioFilter style={styles.BioFilterWrapper}></BioFilter>
+            <PaperFilter style={styles.PaperFilterWrapper}></PaperFilter>
+            {/* <View style={styles.PlasticFilterWrapper}></View>
+          <View style={styles.BioFilterWrapper}></View>
+          <View style={styles.PaperFilterWrapper}></View> */}
+            {/* <PlasticFilter style={styles.PlasticFilter}></PlasticFilter>
+          <BioFilter style={styles.BioFilter}></BioFilter>
+          <PaperFilter style={styles.PaperFilter}></PaperFilter> */}
+            {/* <Text>bebra</Text> */}
+          </View>
+        </Modal>
         {/* <Marker
       // key={index}
       coordinate={{latitude: 47.21578446352277,
@@ -123,39 +136,52 @@ const styles = StyleSheet.create({
     // flex: 1,
     // justifyContent: "flex-end",
     alignItems: "center",
-    elevation:-1,
+    elevation: -1,
     //
+  },
+  Text: {
+    fontSize: 20,
+    elevation: 1,
   },
   map: {
     ...StyleSheet.absoluteFillObject,
     // backgroundColor: '#fff',
   },
-  opa:{
+  opa: {
     // elevation: 3,
     // flex:1,
   },
   Filters: {
-   
+    alignSelf: "flex-end",
+    position: "absolute",
+    marginTop: 190 * coefficientHeight,
+    paddingRight: 10 * coefficientHeight,
   },
   FilersScroll: {
     elevation: 2,
     height: 145 * coefficientHeight,
     width: screenWidth,
     marginBottom: 100 * coefficientHeight,
-    backgroundColor: colors.backgroundGr,
+    // backgroundColor: colors.backgroundGr,
     position: "absolute",
+    overlayAccessibilityLabel: 'Close modal',
   },
 
   FilersAreaWrapper: {
-    marginHorizontal: 20 * coefficientWidth,
-    height: 130 * coefficientHeight,
+    // marginHorizontal: 20 * coefficientWidth,
+    // alignItems:''
+
+    height: 150 * coefficientHeight,
+    width:screenWidth,
+    backgroundColor: colors.backgroundGr,
   },
   PlasticFilterWrapper: {
     width: 117 * coefficientWidth,
     height: 96 * coefficientHeight,
-    // backgroundColor: colors.backgroundGr,
+    // 
     position: "absolute",
     marginTop: 25 * coefficientHeight,
+    marginLeft:20*coefficientWidth,
   },
   BioFilterWrapper: {
     width: 97 * coefficientWidth,
@@ -172,5 +198,6 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginTop: 25 * coefficientHeight,
     alignSelf: "flex-end",
+    right:20*coefficientWidth,
   },
 });
