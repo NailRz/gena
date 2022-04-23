@@ -46,6 +46,36 @@ export default function UserPage({navigation}) {
       return(
         // <NameAlert position = 'absolute' >
         <SafeAreaView style = {styles.container}>
+
+              <Modal 
+              animationType="fade"
+              transparent={true}
+                backgroundColor={'rgba(0, 0, 0, 0.5)'}
+                style={styles.Modal}
+                visible={showModal}
+                onRequestClose={() => {
+                  setshowModal(false);
+                }}
+              >
+                <View style={styles.Wrapper}>
+                  <Text style={styles.FirstText}>Имя и фамилия</Text>
+                  <Text style={styles.SecondTextModal}>Введите новые имя и фамилию</Text>
+                  <View style={styles.InputWrapper}></View>
+                  <View style={styles.ButtonsWrapper}>
+                    <TouchableOpacity style={styles.TouchableFirst} onPress = {onPressButton} >
+                      <View  style={styles.FirstButtonWrapper}>
+                      <Text style={styles.FirstButton}>Отменить</Text>
+                      </View>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.TouchableSecond} onPress = {onPressButton} >
+                      <View  style={styles.SecondButtonWrapper}>
+                    <Text style={styles.SecondButton}>Сохранить</Text>
+                    </View>
+                    </TouchableOpacity>
+                  </View>
+                </View>
+              </Modal>
+
           
             <View style = {styles.UserPhotoWrapper}>
             <Image 
@@ -70,34 +100,6 @@ export default function UserPage({navigation}) {
                 <Pen></Pen>
                 
                 </TouchableOpacity> */}
-              <Modal
-              animationType="fade"
-              transparent={true}
-                style={styles.Modal}
-                visible={showModal}
-                onRequestClose={() => {
-                  setshowModal(false);
-                }}
-              >
-                <View style={styles.Wrapper}>
-                  <Text style={styles.FirstText}>Имя и фамилия</Text>
-                  <Text style={styles.SecondText}>Введите новые имя и фамилию</Text>
-                  <View style={styles.InputWrapper}></View>
-                  <View style={styles.ButtonsWrapper}>
-                    <TouchableOpacity style={styles.TouchableFirst} onPress = {onPressButton} >
-                      <View  style={styles.FirstButtonWrapper}>
-                      <Text style={styles.FirstButton}>Отменить</Text>
-                      </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.TouchableSecond} onPress = {onPressButton} >
-                      <View  style={styles.SecondButtonWrapper}>
-                    <Text style={styles.SecondButton}>Сохранить</Text>
-                    </View>
-                    </TouchableOpacity>
-                  </View>
-                </View>
-              </Modal>
-
 
               </View>
               <View style = {styles.MaleWrapper}>
@@ -132,7 +134,7 @@ export default function UserPage({navigation}) {
 const styles = StyleSheet.create(
   {
     Modal: {
-      backgroundColor: "black",
+      backgroundColor: 'rgba(0, 0, 0, 0.5)',
       // flex:1,
       
     },
@@ -146,6 +148,8 @@ const styles = StyleSheet.create(
       borderRadius: 10,
       alignSelf: "center",
       marginVertical: "50%",
+      borderColor: colors.grayLight,
+      borderWidth: 1,
       
     },
     FirstText: {
@@ -154,7 +158,7 @@ const styles = StyleSheet.create(
       alignSelf: "center",
       paddingTop: 24 * coefficientHeight,
     },
-    SecondText: {
+    SecondTextModal: {
       paddingTop: 19 * coefficientHeight,
       fontFamily: "mt-regular",
       color: colors.grayLight,
