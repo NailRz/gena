@@ -25,10 +25,14 @@ import { useFonts } from "@expo-google-fonts/inter";
 import Authentification from "../components/Authentification";
 // import ForgotPass from '../components/ForgotPass';
 import React, { useState, Component } from "react";
+
 import Filters from "../assets/images/Filters";
 import PlasticFilter from "../assets/images/PlasticFilter";
 import BioFilter from "../assets/images/BioFilter";
 import PaperFilter from "../assets/images/PaperFilter";
+import PlasticFilterActive from "../assets/images/PlasticFilterActive";
+import BioFilterActive from "../assets/images/BioFilterActive";
+import PaperFilterActive from "../assets/images/PaperFilterActive";
 
 const screenWidth = Dimensions.get("window").width;
 const screenHeight = Dimensions.get("window").height;
@@ -44,6 +48,24 @@ export default function MapPageConst({ navigation }) {
   const [showModal, setshowModal] = useState(false);
   const onPressButton = () => {
     setshowModal(!showModal), console.log(showModal);
+  };
+
+  const [PlasticFilterShowActive, setPlasticFilterShowActive] = useState(false);
+  const onPressFilterPlastic = () => {
+    setPlasticFilterShowActive(!PlasticFilterShowActive),
+      console.log(PlasticFilterShowActive);
+  };
+
+  const [BioFilterShowActive, setBioFilterShowActive] = useState(false);
+  const onPressFilterBio = () => {
+    setBioFilterShowActive(!BioFilterShowActive),
+      console.log(BioFilterShowActive);
+  };
+
+  const [PaperFilterShowActive, setPaperFilterShowActive] = useState(false);
+  const onPressFilterPaper = () => {
+    setPaperFilterShowActive(!PaperFilterShowActive),
+      console.log(PaperFilterShowActive);
   };
 
   let [fontsLoaded] = useFonts({
@@ -81,31 +103,95 @@ export default function MapPageConst({ navigation }) {
         </SafeAreaView> */}
         {/* <View style={styles.opa}> */}
         <TouchableOpacity style={styles.Filters} onPress={onPressButton}>
-          <Filters />
+          {!showModal ? <Filters /> : null}
         </TouchableOpacity>
         {/* </View> */}
         <Modal
           // animationType="slideInUp"
-          animationIn= 'up'
-          animationInTiming = {500}
-          animationOut = "slideOutDown"
-          hasBackdrop = {1}
+          animationIn="up"
+          animationInTiming={500}
+          animationOut="slideOutDown"
+          hasBackdrop={1}
           transparent={true}
           style={styles.FilersScroll}
           visible={showModal}
-          dismissable = {false}
-          backdropColor = 'black'
-          swipeDirection = 'up'
-          
+          dismissable={false}
+          backdropColor="black"
+          swipeDirection="up"
           onRequestClose={() => {
             setshowModal(false);
           }}
           onSwipeComplete={() => setshowModal(false)}
         >
           <View style={styles.FilersAreaWrapper}>
-            <PlasticFilter style={styles.PlasticFilterWrapper}></PlasticFilter>
-            <BioFilter style={styles.BioFilterWrapper}></BioFilter>
-            <PaperFilter style={styles.PaperFilterWrapper}></PaperFilter>
+            {/* <TouchableOpacity
+              onPress={() =>
+                // setPlasticFilterShowActive('true'),
+                PlasticFilterShowActive ? (
+                  <PlasticFilterActive style={styles.PlasticFilterWrapper} />
+                ) : (
+                  <PlasticFilter
+                    style={styles.PlasticFilterWrapper}
+                  ></PlasticFilter>, onPressFilter()
+                )
+              }
+            ></TouchableOpacity> */}
+
+            {PlasticFilterShowActive ? (
+              <TouchableOpacity
+                onPress={onPressFilterPlastic}
+                style={styles.PlasticFilterWrapper}
+              >
+                <PlasticFilterActive style = {styles.Plastic}/>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={onPressFilterPlastic}
+                style={styles.PlasticFilterWrapper}
+              >
+                <PlasticFilter style = {styles.Plastic}/>
+              </TouchableOpacity>
+            )}
+
+            {BioFilterShowActive ? (
+              <TouchableOpacity
+                onPress={onPressFilterBio}
+                style={styles.BioFilterWrapper}
+              >
+                <BioFilterActive style = {styles.Bio}/>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={onPressFilterBio}
+                style={styles.BioFilterWrapper}
+              >
+                <BioFilter style = {styles.Bio}/>
+              </TouchableOpacity>
+            )}
+
+            {PaperFilterShowActive ? (
+              <TouchableOpacity
+                onPress={onPressFilterPaper}
+                style={styles.PaperFilterWrapper}
+              >
+                <PaperFilterActive style = {styles.Paper}/>
+              </TouchableOpacity>
+            ) : (
+              <TouchableOpacity
+                onPress={onPressFilterPaper}
+                style={styles.PaperFilterWrapper}
+              >
+                <PaperFilter style = {styles.Paper}/>
+              </TouchableOpacity>
+            )}
+
+            {/* 
+            <TouchableOpacity style={styles.BioFilterWrapper}>
+              <BioFilter />
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.PaperFilterWrapper}>
+              <PaperFilterActive />
+            </TouchableOpacity> */}
             {/* <View style={styles.PlasticFilterWrapper}></View>
           <View style={styles.BioFilterWrapper}></View>
           <View style={styles.PaperFilterWrapper}></View> */}
@@ -114,6 +200,16 @@ export default function MapPageConst({ navigation }) {
           <PaperFilter style={styles.PaperFilter}></PaperFilter> */}
             {/* <Text>bebra</Text> */}
           </View>
+
+          <View>
+            <TouchableOpacity
+              style={styles.FiltersSecond}
+              onPress={onPressButton}
+            >
+              {showModal ? <Filters /> : null}
+            </TouchableOpacity>
+          </View>
+
         </Modal>
         {/* <Marker
       // key={index}
@@ -151,20 +247,27 @@ const styles = StyleSheet.create({
     // elevation: 3,
     // flex:1,
   },
+  ModalWrapper: {},
   Filters: {
     alignSelf: "flex-end",
     position: "absolute",
     marginTop: 190 * coefficientHeight,
     paddingRight: 10 * coefficientHeight,
   },
+  FiltersSecond: {
+    alignSelf: "flex-end",
+    position: "absolute",
+    marginTop: 14 * coefficientHeight,
+    paddingRight: 10 * coefficientHeight,
+  },
   FilersScroll: {
     elevation: 2,
-    height: 145 * coefficientHeight,
+    height: 200 * coefficientHeight,
     width: screenWidth,
     marginBottom: 100 * coefficientHeight,
     // backgroundColor: colors.backgroundGr,
     position: "absolute",
-    overlayAccessibilityLabel: 'Close modal',
+    // overlayAccessibilityLabel: 'Close modal',
   },
 
   FilersAreaWrapper: {
@@ -172,24 +275,30 @@ const styles = StyleSheet.create({
     // alignItems:''
 
     height: 150 * coefficientHeight,
-    width:screenWidth,
-    backgroundColor: colors.backgroundGr,
+    width: screenWidth,
+    backgroundColor: colors.backgroundWh,
   },
   PlasticFilterWrapper: {
-    width: 117 * coefficientWidth,
-    height: 96 * coefficientHeight,
-    // 
+    
+    //
     position: "absolute",
     marginTop: 25 * coefficientHeight,
-    marginLeft:20*coefficientWidth,
+    marginLeft: 20 * coefficientWidth,
+  },
+  Plastic:{
+    width: 117 * coefficientWidth,
+    height: 96 * coefficientHeight,
   },
   BioFilterWrapper: {
-    width: 97 * coefficientWidth,
-    height: 96 * coefficientHeight,
+    
     // backgroundColor: colors.backgroundGr,
     position: "absolute",
     marginTop: 25 * coefficientHeight,
     alignSelf: "center",
+  },
+  Bio:{
+    width: 97 * coefficientWidth,
+    height: 96 * coefficientHeight,
   },
   PaperFilterWrapper: {
     width: 96 * coefficientWidth,
@@ -198,6 +307,10 @@ const styles = StyleSheet.create({
     position: "absolute",
     marginTop: 25 * coefficientHeight,
     alignSelf: "flex-end",
-    right:20*coefficientWidth,
+    right: 20 * coefficientWidth,
+  },
+  Paper: {
+    width: 96 * coefficientWidth,
+    height: 96 * coefficientHeight,
   },
 });
